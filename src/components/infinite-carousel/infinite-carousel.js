@@ -22,12 +22,25 @@ class InfiniteCarousel extends React.PureComponent {
   }
 
   handleLeftClick() {
+    const panels = [...this.state.images];
+    const popped = panels.pop();
+    panels.unshift(popped);
 
+    this.setState({
+      images: panels,
+      panels: panels.slice(0, PANEL_SIZE)
+    })
   }
 
   handleRightClick() {
-    this.setState({ isRightClicked: true });
-    console.log('hit')
+    const panels = [...this.state.images];
+    const shifted = panels.shift();
+    panels.push(shifted);
+
+    this.setState({
+      images: panels,
+      panels: panels.slice(0, PANEL_SIZE)
+    })
   }
 
   render() {
@@ -52,10 +65,5 @@ class InfiniteCarousel extends React.PureComponent {
     );
   }
 }
-
-/*
-notes for if i had more time:
-resize images, impelment webp
-*/
 
 export default InfiniteCarousel;
